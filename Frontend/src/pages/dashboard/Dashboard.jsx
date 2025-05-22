@@ -27,12 +27,13 @@ function Dashboard() {
   }, [user]);
 
   return (
-    <div className="p-10 md:px-20 lg:px-32">
+    <div className="bg-[#0f1117] min-h-screen text-white p-10">
       <h2 className="font-bold text-3xl">My Resume</h2>
-      <p className="py-3"> Start creating your Ai resume for next Job role</p>
+      <p className="py-3">Start creating your AI resume for the next job role</p>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 mt-5 gap-4">
         <AddResume />
-        {Array.isArray(resumeList) && resumeList.length > 0 &&
+        {Array.isArray(resumeList) &&
+          resumeList.length > 0 &&
           resumeList.map((resume, index) => (
             <ResumeCard
               key={resume._id}

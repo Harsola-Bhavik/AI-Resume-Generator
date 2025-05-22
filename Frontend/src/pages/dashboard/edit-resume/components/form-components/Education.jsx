@@ -77,7 +77,7 @@ function Education({ resumeInfo, enanbledNext }) {
   };
 
   return (
-    <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
+    <div className="bg-[#0f1117] text-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <h2 className="font-bold text-lg">Education</h2>
       <p>Add Your educational details</p>
 
@@ -88,46 +88,51 @@ function Education({ resumeInfo, enanbledNext }) {
               <div className="col-span-2">
                 <label>University Name</label>
                 <Input
+                  className="text-black"
                   name="universityName"
                   onChange={(e) => handleChange(e, index)}
                   defaultValue={item?.universityName}
-                />
+                  />
               </div>
               <div>
                 <label>Degree</label>
                 <Input
+                  className="text-black"
                   name="degree"
                   onChange={(e) => handleChange(e, index)}
                   defaultValue={item?.degree}
-                />
+                  />
               </div>
               <div>
                 <label>Major</label>
                 <Input
+                  className="text-black"
                   name="major"
                   onChange={(e) => handleChange(e, index)}
                   defaultValue={item?.major}
-                />
+                  />
               </div>
               <div>
                 <label>Start Date</label>
                 <Input
+                  className="text-black"
                   type="date"
                   name="startDate"
                   onChange={(e) => handleChange(e, index)}
                   defaultValue={item?.startDate}
-                />
+                  />
               </div>
               <div>
                 <label>End Date</label>
                 <Input
+                  className="text-black"
                   type="date"
                   name="endDate"
                   onChange={(e) => handleChange(e, index)}
                   defaultValue={item?.endDate}
-                />
+                  />
               </div>
-              <div className="col-span-2">
+              <div className="col-span-2 text-black">
                 <label>Grade</label>
                 <div className="flex justify-center items-center gap-4">
                   <select
@@ -145,12 +150,13 @@ function Education({ resumeInfo, enanbledNext }) {
                     name="grade"
                     onChange={(e) => handleChange(e, index)}
                     defaultValue={item?.endDate}
-                  />
+                    />
                 </div>
               </div>
               <div className="col-span-2">
                 <label>Description</label>
                 <Textarea
+                    className="text-black"
                   name="description"
                   onChange={(e) => handleChange(e, index)}
                   defaultValue={item?.description}

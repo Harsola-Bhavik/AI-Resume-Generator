@@ -64,12 +64,12 @@ function PersonalDetails({ resumeInfo, enanbledNext }) {
   };
 
   return (
-    <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
+    <div className="p-5 bg-[#0f1117] text-white shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <h2 className="font-bold text-lg">Personal Detail</h2>
       <p>Get Started with the basic information</p>
 
       <form onSubmit={onSave}>
-        <div className="grid grid-cols-2 mt-5 gap-3">
+        <div className="grid grid-cols-2 mt-5 gap-3 ">
           <div>
             <label className="text-sm">First Name</label>
             <Input
@@ -88,7 +88,7 @@ function PersonalDetails({ resumeInfo, enanbledNext }) {
               defaultValue={resumeInfo?.lastName}
             />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-2 text-black">
             <label className="text-sm">Job Title</label>
             <Input
               name="jobTitle"
@@ -114,8 +114,8 @@ function PersonalDetails({ resumeInfo, enanbledNext }) {
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label className="text-sm">Email</label>
+          <div className="text-black">
+            <label className="text-sm text-white ">Email</label>
             <Input
               name="email"
               required

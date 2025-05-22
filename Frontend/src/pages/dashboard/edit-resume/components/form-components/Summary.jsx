@@ -86,12 +86,12 @@ function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
   };
 
   return (
-    <div>
-      <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
+    <div className="bg-[#0f1117]  ">
+      <div className="p-5 shadow-lg text-white rounded-lg border-t-primary border-t-4 mt-10">
         <h2 className="font-bold text-lg">Summary</h2>
         <p>Add Summary for your job title</p>
 
-        <form className="mt-7" onSubmit={onSave}>
+        <form className="mt-7 " onSubmit={onSave}>
           <div className="flex justify-between items-end">
             <label>Add Summery</label>
             <Button
@@ -99,19 +99,19 @@ function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
               onClick={() => GenerateSummeryFromAI()}
               type="button"
               size="sm"
-              className="border-primary text-primary flex gap-2"
+              className="border-primary  text-primary flex gap-2"
             >
               <Sparkles className="h-4 w-4" /> Generate from AI
             </Button>
           </div>
           <Textarea
             name="summary"
-            className="mt-5"
+            className="mt-5 text-black"
             required
             value={summary ? summary : resumeInfo?.summary}
             onChange={handleInputChange}
           />
-          <div className="mt-2 flex justify-end">
+          <div className="mt-2 text-white flex justify-end">
             <Button type="submit" disabled={loading}>
               {loading ? <LoaderCircle className="animate-spin" /> : "Save"}
             </Button>
@@ -120,8 +120,8 @@ function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
       </div>
 
       {aiGeneratedSummeryList && (
-        <div className="my-5">
-          <h2 className="font-bold text-lg">Suggestions</h2>
+        <div className="my-5 text-white">
+          <h2 className="font-bold text-lg ml-5">Suggestions</h2>
           {aiGeneratedSummeryList?.map((item, index) => (
             <div
               key={index}

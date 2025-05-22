@@ -86,7 +86,7 @@ function Project({ resumeInfo, setEnabledNext, setEnabledPrev }) {
   };
 
   return (
-    <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
+    <div className="bg-[#0f1117] text-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <h2 className="font-bold text-lg">Project</h2>
       <p>Add your projects</p>
       <div>
@@ -108,17 +108,19 @@ function Project({ resumeInfo, setEnabledNext, setEnabledPrev }) {
               <div>
                 <label className="text-xs">Project Name</label>
                 <Input
+                  className="text-black"
                   type="text"
                   name="projectName"
                   value={project?.projectName}
                   onChange={(e) => {
                     handleChange(e, index);
                   }}
-                />
+                  />
               </div>
               <div>
                 <label className="text-xs">Company Name</label>
                 <Input
+                  className="text-black"
                   type="text"
                   name="techStack"
                   value={project?.techStack}

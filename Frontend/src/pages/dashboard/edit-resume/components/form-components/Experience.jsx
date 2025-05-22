@@ -101,7 +101,7 @@ function Experience({ resumeInfo, enanbledNext, enanbledPrev }) {
   };
   return (
     <div>
-      <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
+      <div className=" bg-[#0f1117] text-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
         <h2 className="font-bold text-lg">Experience</h2>
         <p>Add Your Previous Job Experience</p>
         <div>
@@ -123,50 +123,55 @@ function Experience({ resumeInfo, enanbledNext, enanbledPrev }) {
                 <div>
                   <label className="text-xs">Position Tittle</label>
                   <Input
+                    className="text-black"
                     type="text"
                     name="title"
                     value={experience?.title}
                     onChange={(e) => {
                       handleChange(e, index);
                     }}
-                  />
+                    />
                 </div>
                 <div>
                   <label className="text-xs">Company Name</label>
                   <Input
+                    className="text-black"
                     type="text"
                     name="companyName"
                     value={experience?.companyName}
                     onChange={(e) => {
                       handleChange(e, index);
                     }}
-                  />
+                    />
                 </div>
                 <div>
                   <label className="text-xs">City</label>
                   <Input
+                    className="text-black"
                     type="text"
                     name="city"
                     value={experience?.city}
                     onChange={(e) => {
                       handleChange(e, index);
                     }}
-                  />
+                    />
                 </div>
                 <div>
                   <label className="text-xs">State</label>
                   <Input
+                    className="text-black"
                     type="text"
                     name="state"
                     value={experience?.state}
                     onChange={(e) => {
                       handleChange(e, index);
                     }}
-                  />
+                    />
                 </div>
                 <div>
                   <label className="text-xs">StartDate</label>
                   <Input
+                    className="text-black"
                     type="date"
                     name="startDate"
                     value={experience?.startDate}
@@ -178,6 +183,7 @@ function Experience({ resumeInfo, enanbledNext, enanbledPrev }) {
                 <div>
                   <label className="text-xs">End Date</label>
                   <Input
+                    className="text-black"
                     type="date"
                     name="endDate"
                     value={experience?.endDate}

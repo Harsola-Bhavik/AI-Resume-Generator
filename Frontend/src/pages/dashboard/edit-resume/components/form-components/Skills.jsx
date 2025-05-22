@@ -77,7 +77,7 @@ function Skills({ resumeInfo, enanbledNext }) {
     }
   };
   return (
-    <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
+    <div className="bg-[#0f1117] text-white p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <h2 className="font-bold text-lg">Skills</h2>
       <p>Add Your top professional key skills</p>
 
@@ -90,7 +90,8 @@ function Skills({ resumeInfo, enanbledNext }) {
             <div>
               <label className="text-xs">Name</label>
               <Input
-                className="w-full"
+                
+                className="w-full text-black"
                 defaultValue={item.name}
                 onChange={(e) => handleChange(index, "name", e.target.value)}
               />

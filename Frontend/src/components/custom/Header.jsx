@@ -18,35 +18,34 @@ function Header({ user }) {
     }
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      const response = await logoutUser();
-      if (response.statusCode == 200) {
-        dispatch(addUserData(""));
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   return (
     <div
       id="printHeader"
       className="flex justify-between px-10 py-5 shadow-md items-center bg-[#0f1117] text-white"
     >
-      <img
-        src={logo}
-        alt="logo"
-        width={100}
-        height={100}
-        style={{ borderRadius: "50px" }}
-      />
+      <Link to="/">
+        <img
+          src={logo}
+          alt="logo"
+          width={100}
+          height={100}
+          style={{ borderRadius: "50px", cursor: "pointer" }}
+        />
+      </Link>
       {user ? (
         <div className="flex items-center gap-4">
           <Button
             variant="outline"
-            className="border-white text-black  hover:bg-gray-200"
+            className="border-white text-black hover:bg-gray-200"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Home
+          </Button>
+          <Button
+            variant="outline"
+            className="border-white text-black hover:bg-gray-200"
             onClick={() => {
               navigate("/dashboard");
             }}
@@ -55,14 +54,26 @@ function Header({ user }) {
           </Button>
           <Button
             className="bg-white text-black hover:bg-gray-200"
-            onClick={handleLogout}
+            onClick={async () => {
+              try {
+                const response = await logoutUser();
+                if (response.statusCode === 200) {
+                  dispatch(addUserData(""));
+                  navigate("/");
+                }
+              } catch (error) {
+                console.log(error.message);
+              }
+            }}
           >
             Logout
           </Button>
         </div>
       ) : (
         <Link to="/auth/sign-in">
-          <Button className="bg-white text-black hover:bg-gray-200">Get Started</Button>
+          <Button className="bg-white text-black hover:bg-gray-200">
+            Get Started
+          </Button>
         </Link>
       )}
     </div>
