@@ -106,12 +106,12 @@ function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
           </div>
           <Textarea
             name="summary"
-            className="mt-5 text-black"
+            className="mt-5 bg-black text-white h-40"
             required
             value={summary ? summary : resumeInfo?.summary}
             onChange={handleInputChange}
           />
-          <div className="mt-2 text-white flex justify-end">
+          <div className="mt-4 text-white flex justify-end">
             <Button type="submit" disabled={loading}>
               {loading ? <LoaderCircle className="animate-spin" /> : "Save"}
             </Button>
@@ -120,7 +120,7 @@ function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
       </div>
 
       {aiGeneratedSummeryList && (
-        <div className="my-5 text-white">
+        <div className=" my-5 text-white mt-1">
           <h2 className="font-bold text-lg ml-5">Suggestions</h2>
           {aiGeneratedSummeryList?.map((item, index) => (
             <div
@@ -132,10 +132,10 @@ function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
               }}
               className="p-5 shadow-lg my-4 rounded-lg cursor-pointer"
             >
-              <h2 className="font-bold my-1 text-primary">
+              <h2 className="border-gray-500 border-2 rounded-md p-2 font-bold my-1 text-primary">
                 Level: {item?.experience_level}
               </h2>
-              <p>{item?.summary}</p>
+              <p className="border-gray-500 border-2 rounded-md p-2">{item?.summary}</p>
             </div>
           ))}
         </div>
