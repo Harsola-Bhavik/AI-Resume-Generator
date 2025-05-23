@@ -74,40 +74,45 @@ function PersonalDetails({ resumeInfo, enanbledNext }) {
             <label className="text-sm">First Name</label>
             <Input
               name="firstName"
+              className="text-black"
               defaultValue={resumeInfo?.firstName}
               required
               onChange={handleInputChange}
-            />
+              />
           </div>
           <div>
             <label className="text-sm">Last Name</label>
             <Input
+              className="text-black"
               name="lastName"
               required
               onChange={handleInputChange}
               defaultValue={resumeInfo?.lastName}
-            />
+              />
           </div>
-          <div className="col-span-2 text-black">
+          <div className="col-span-2">
             <label className="text-sm">Job Title</label>
             <Input
+              className="text-black"
               name="jobTitle"
               defaultValue={resumeInfo?.jobTitle}
               onChange={handleInputChange}
-            />
+              />
           </div>
           <div className="col-span-2">
             <label className="text-sm">Address</label>
             <Input
+              className="text-black"
               name="address"
               required
               defaultValue={resumeInfo?.address}
               onChange={handleInputChange}
-            />
+              />
           </div>
           <div>
             <label className="text-sm">Phone</label>
             <Input
+              className="text-black"
               name="phone"
               required
               defaultValue={resumeInfo?.phone}

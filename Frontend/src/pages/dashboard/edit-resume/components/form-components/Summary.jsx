@@ -10,12 +10,13 @@ import { AIChatSession } from "@/Services/AiModel";
 import { updateThisResume } from "@/Services/resumeAPI";
 
 const prompt =
-  "Job Title: {jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format";
+  "Job Title: {jobTitle} , Depends on job title give me list of summary for 3 experience levels (Senior Level, Mid Level, and Fresher level) in 3-4 lines in array format, with summary and experience_level fields in JSON format. Example: [{\"experience_level\": \"Senior Level\", \"summary\": \"...\"}, ...]";
+
 function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false); // Declare the undeclared variable using useState
-  const [summary, setSummary] = useState(resumeInfo?.summary || ""); // Declare the undeclared variable using useState
-  const [aiGeneratedSummeryList, setAiGenerateSummeryList] = useState(null); // Declare the undeclared variable using useState
+  const [loading, setLoading] = useState(false);
+  const [summary, setSummary] = useState(resumeInfo?.summary || "");
+  const [aiGeneratedSummaryList, setAiGeneratedSummaryList] = useState([]);
   const { resume_id } = useParams();
 
   const handleInputChange = (e) => {
@@ -33,17 +34,18 @@ function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
   const onSave = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("Started Saving Summary");
+    
     const data = {
       data: { summary },
     };
+
     if (resume_id) {
       updateThisResume(resume_id, data)
-        .then((data) => {
-          toast("Resume Updated", "success");
+        .then(() => {
+          toast.success("Resume Updated");
         })
         .catch((error) => {
-          toast("Error updating resume", `${error.message}`);
+          toast.error(`Error updating resume: ${error.message}`);
         })
         .finally(() => {
           enanbledNext(true);
@@ -51,65 +53,86 @@ function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
           setLoading(false);
         });
     }
-  }; // Declare the undeclared variable using useState
+  };
 
-  const setSummery = (summary) => {
+  const setSummaryHandler = (summaryText) => {
     dispatch(
       addResumeData({
         ...resumeInfo,
-        summary: summary,
+        summary: summaryText,
       })
     );
-    setSummary(summary);
+    setSummary(summaryText);
   };
 
-  const GenerateSummeryFromAI = async () => {
+  const generateSummaryFromAI = async () => {
     setLoading(true);
-    console.log("Generate Summery From AI for", resumeInfo?.jobTitle);
+    
     if (!resumeInfo?.jobTitle) {
-      toast("Please Add Job Title");
+      toast.warning("Please add Job Title first");
       setLoading(false);
       return;
     }
-    const PROMPT = prompt.replace("{jobTitle}", resumeInfo?.jobTitle);
+
+    const PROMPT = prompt.replace("{jobTitle}", resumeInfo.jobTitle);
+    
     try {
       const result = await AIChatSession.sendMessage(PROMPT);
-      console.log(JSON.parse(result.response.text()));
-      setAiGenerateSummeryList(JSON.parse(result.response.text()));
-      toast("Summery Generated", "success");
+      
+      try {
+        const parsedResult = JSON.parse(result.response.text());
+        
+        if (Array.isArray(parsedResult) && parsedResult.length > 0) {
+          setAiGeneratedSummaryList(parsedResult);
+          toast.success("Summary suggestions generated");
+        } else {
+          throw new Error("AI response format is invalid");
+        }
+      } catch (parseError) {
+        console.error("Failed to parse AI response:", parseError);
+        toast.error("Failed to process AI response. Please try again.");
+      }
     } catch (error) {
-      console.log(error);
-      toast("${error.message}", `${error.message}`);
+      console.error("AI generation error:", error);
+      toast.error(`AI generation failed: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="bg-[#0f1117]  ">
+    <div className="bg-[#0f1117]">
       <div className="p-5 shadow-lg text-white rounded-lg border-t-primary border-t-4 mt-10">
         <h2 className="font-bold text-lg">Summary</h2>
-        <p>Add Summary for your job title</p>
+        <p>Add summary for your job title</p>
 
-        <form className="mt-7 " onSubmit={onSave}>
+        <form className="mt-7" onSubmit={onSave}>
           <div className="flex justify-between items-end">
-            <label>Add Summery</label>
+            <label>Add Summary</label>
             <Button
               variant="outline"
-              onClick={() => GenerateSummeryFromAI()}
+              onClick={generateSummaryFromAI}
               type="button"
               size="sm"
-              className="border-primary  text-primary flex gap-2"
+              className="border-primary text-primary flex gap-2"
+              disabled={loading}
             >
-              <Sparkles className="h-4 w-4" /> Generate from AI
+              {loading ? (
+                <LoaderCircle className="h-4 w-4 animate-spin" />
+              ) : (
+                <>
+                  <Sparkles className="h-4 w-4" /> Generate from AI
+                </>
+              )}
             </Button>
           </div>
           <Textarea
             name="summary"
             className="mt-5 bg-black text-white h-40"
             required
-            value={summary ? summary : resumeInfo?.summary}
+            value={summary}
             onChange={handleInputChange}
+            placeholder="Enter your professional summary here..."
           />
           <div className="mt-4 text-white flex justify-end">
             <Button type="submit" disabled={loading}>
@@ -119,23 +142,25 @@ function Summary({ resumeInfo, enanbledNext, enanbledPrev }) {
         </form>
       </div>
 
-      {aiGeneratedSummeryList && (
-        <div className=" my-5 text-white mt-1">
-          <h2 className="font-bold text-lg ml-5">Suggestions</h2>
-          {aiGeneratedSummeryList?.map((item, index) => (
+      {Array.isArray(aiGeneratedSummaryList) && aiGeneratedSummaryList.length > 0 && (
+        <div className="my-5 text-white mt-1">
+          <h2 className="font-bold text-lg ml-5">AI Suggestions</h2>
+          {aiGeneratedSummaryList.map((item, index) => (
             <div
-              key={index}
+              key={`summary-${index}`}
               onClick={() => {
                 enanbledNext(false);
                 enanbledPrev(false);
-                setSummery(item?.summary);
+                setSummaryHandler(item?.summary);
               }}
-              className="p-5 shadow-lg my-4 rounded-lg cursor-pointer"
+              className="p-5 shadow-lg my-4 rounded-lg cursor-pointer hover:bg-gray-800 transition-colors"
             >
               <h2 className="border-gray-500 border-2 rounded-md p-2 font-bold my-1 text-primary">
-                Level: {item?.experience_level}
+                {item?.experience_level || "Professional"}
               </h2>
-              <p className="border-gray-500 border-2 rounded-md p-2">{item?.summary}</p>
+              <p className="border-gray-500 border-2 rounded-md p-2">
+                {item?.summary || "No summary available"}
+              </p>
             </div>
           ))}
         </div>
