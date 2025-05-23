@@ -45,7 +45,7 @@ function HomePage() {
   return (
     <>
       <Header user={user} />
-      <section className="pt-24 pb-20 bg-[#0f1117]">
+      <section className="pt-24 pb-20 bg-[#0f1117] text-gray-400 border-t border-[#3acce1]/30">
         <div className="px-8 mx-auto max-w-7xl text-white">
           <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
             <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-6xl">
@@ -102,7 +102,7 @@ function HomePage() {
 
           <div className="w-full mx-auto mt-20 text-center md:w-10/12">
             <div className="relative z-0 w-full mt-8">
-              <div className="relative overflow-hidden shadow-2xl border border-[#3acce1]/30 rounded-xl">
+              <div className="relative overflow-hidden shadow-2xl border  text-gray-400 border-t border-[#3acce1]/30 rounded-xl">
                 <div className="flex items-center justify-between px-4 bg-gradient-to-r from-[#00F6A7] to-[#3ACCE1] h-11 rounded-t-xl">
                   <div className="flex space-x-1.5">
                     <FaCircle className="w-3 h-3 text-white hover:text-gray-300 transition duration-300 transform hover:scale-125" />
@@ -123,9 +123,9 @@ function HomePage() {
         </div>
       </section>
 
-      <footer className="bg-[#0f1117] text-gray-400 border-t border-[#3acce1]/30 mt-20">
+      <footer className="bg-[#0f1117] mt-0 text-gray-400 border-t border-[#3acce1]/30 ">
         <div className="pt-8 pb-6 px-8 flex justify-between items-center max-w-7xl mx-auto">
-          <p className="text-sm">&copy; 2024 Ai-Resume-Builder. All rights reserved.</p>
+          <p className="text-sm">&copy; 2025 Ai-Resume-Generator. All rights reserved.</p>
           <Button variant="secondary" onClick={handleClick} className="bg-[#1f212a] border border-gray-600 hover:bg-[#2a2d39] text-white">
             <FaGithub className="w-4 h-4 mr-2" />
             GitHub
